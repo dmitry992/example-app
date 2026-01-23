@@ -28,4 +28,13 @@ class DevController extends Controller
     public function test()
     {
     }
+
+    public function getDummyConfig()
+    {
+        return [
+            'url' => config('dummyjson.url'),
+            'username' => config('dummyjson.username'),
+            'password' => config('dummyjson.password'),
+        ];
+    }
 }
