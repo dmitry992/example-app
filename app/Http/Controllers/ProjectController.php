@@ -55,6 +55,7 @@ class ProjectController extends Controller
     public function edit()
     {
         $project = (object) [
+            'id' => 2,
             'project_name' => 'Проект 2',
             'user' => 'Владелец 1',
             'created_at' => '28.01.2026 15:00:00',
