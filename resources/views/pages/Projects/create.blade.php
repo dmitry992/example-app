@@ -9,6 +9,8 @@
             Проект создан
         </x-alert>
         <x-form class="wrapper-form" action="{{ route('projects.store') }}" method="POST">
+            @csrf
+            <input type="hidden" name="access" value="yes">
             <div>
                 <x-label for="project_name">Название проекта:</x-label>
                 <x-input name="project_name" id="project_name"/>
@@ -29,7 +31,7 @@
                 <x-input type="date" name="deadline_date" id="deadline_date"/>
             </div>
 
-            <x-button disabled>Создать проект</x-button>
+            <x-button>Создать проект</x-button>
         </x-form>
     </x-wrapper>
 

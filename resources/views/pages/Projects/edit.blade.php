@@ -4,6 +4,9 @@
 @section('content')
     <x-wrapper>
         <x-form class="wrapper-form" action="{{ route('projects.update', $project->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="access" value="yes">
             <div>
                 <x-label for="project_name">Название проекта:</x-label>
                 <x-input name="project_name" id="project_name" value="{{$project->project_name}}"/>
@@ -24,7 +27,7 @@
                 <x-input type="date" name="deadline_date" id="deadline_date" value="{{date('Y-m-d', strtotime($project->deadline_date))}}"/>
             </div>
 
-            <x-button disabled>Редактировать проект</x-button>
+            <x-button>Редактировать проект</x-button>
         </x-form>
     </x-wrapper>
 @endsection

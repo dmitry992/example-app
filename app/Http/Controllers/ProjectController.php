@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
+
 class ProjectController extends Controller
 {
 
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::with(['owner', 'assignee'])->get();
 
         return view('pages.Projects.index', compact('projects'));
     }
@@ -34,7 +35,7 @@ class ProjectController extends Controller
 
     public function show($id)
     {
-        $project = Project::findOrFail($id);
+        $project = Project::with(['owner', 'assignee'])->findOrFail($id);
 
         return view('pages.Projects.show', compact('project'));
     }
