@@ -11,12 +11,12 @@
 
             <div>
                 <x-label for="user_id">Создатель:</x-label>
-                <x-input type="text" name="user_id" id="user_id" value="{{$project->user}}"/>
+                <x-input type="text" name="user_id" id="user_id" value="{{$project->user_id}}"/>
             </div>
 
             <div>
                 <x-label for="assignee_id">Исполнитель:</x-label>
-                <x-input type="text" name="assignee_id" id="assignee_id" value="{{$project->assignee}}"/>
+                <x-input type="text" name="assignee_id" id="assignee_id" value="{{$project->assignee_id}}"/>
             </div>
 
             <div>

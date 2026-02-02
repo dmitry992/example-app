@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -9,22 +10,7 @@ class ProjectController extends Controller
 
     public function index()
     {
-        $projects = [
-            (object) [
-                'project_name' => 'Проект 1',
-                'user' => 'Владелец  1',
-                'created_at' => '28.01.2026 13:45:12',
-                'assignee' => 'Ответственный 1',
-                'deadline_date' => '29.01.2026'
-            ],
-            (object) [
-                'project_name' => 'Проект 2',
-                'user' => 'Владелец 1',
-                'created_at' => '28.01.2026 15:00:00',
-                'assignee' => 'Ответственный 2',
-                'deadline_date' => '30.01.2026'
-            ]
-        ];
+        $projects = Project::all();
 
         return view('pages.Projects.index', compact('projects'));
     }
@@ -34,46 +20,53 @@ class ProjectController extends Controller
         return view('pages.Projects.create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        return 'Сохранить проект';
+        Project::create($request->only([
+            'project_name',
+            'user_id',
+            'assignee_id',
+            'deadline_date',
+        ]));
+
+        return redirect()->route('projects.index');
     }
 
-    public function show()
+    public function show($id)
     {
-        $project = (object) [
-                'project_name' => 'Проект 1',
-                'user' => 'Владелец  1',
-                'created_at' => '28.01.2026 13:45:12',
-                'assignee' => 'Ответственный 1',
-                'deadline_date' => '29.01.2026'
-        ];
+        $project = Project::findOrFail($id);
 
         return view('pages.Projects.show', compact('project'));
     }
 
-    public function edit()
+    public function edit($id)
     {
-        $project = (object) [
-            'id' => 2,
-            'project_name' => 'Проект 2',
-            'user' => 'Владелец 1',
-            'created_at' => '28.01.2026 15:00:00',
-            'assignee' => 'Ответственный 2',
-            'deadline_date' => '30.01.2026'
-        ];
+
+        $project = Project::findOrFail($id);
 
         return view('pages.Projects.edit', compact('project'));
     }
 
-    public function update($project)
+    public function update(Request $request, $id)
     {
-        return "Обновить проект $project";
+        $project = Project::findOrFail($id);
+
+        $project->update($request->only([
+            'project_name',
+            'user_id',
+            'assignee_id',
+            'deadline_date',
+        ]));
+
+        return redirect()->route('projects.show', $project);
     }
 
-    public function destroy($project)
+    public function destroy($id)
     {
-        return "Удалить проект $project";
+        $project = Project::findOrFail($id);
+        $project->delete();
+
+        return redirect()->route('projects.index');
     }
 
 }
