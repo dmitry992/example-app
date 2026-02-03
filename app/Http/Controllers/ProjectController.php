@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Project\StoreProjectRequest;
+use App\Http\Requests\Project\UpdateProjectRequest;
 use App\Models\Project;
-use Illuminate\Http\Request;
-
 
 class ProjectController extends Controller
 {
@@ -21,16 +21,11 @@ class ProjectController extends Controller
         return view('pages.Projects.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        Project::create($request->only([
-            'project_name',
-            'user_id',
-            'assignee_id',
-            'deadline_date',
-        ]));
+        Project::create($request->validated());
 
-        return redirect()->route('projects.index');
+        return redirect()->route('projects.create', ['access' => 'yes'])->with('success', 'Проект создан');
     }
 
     public function show($id)
@@ -48,18 +43,13 @@ class ProjectController extends Controller
         return view('pages.Projects.edit', compact('project'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateProjectRequest $request, $id)
     {
         $project = Project::findOrFail($id);
 
-        $project->update($request->only([
-            'project_name',
-            'user_id',
-            'assignee_id',
-            'deadline_date',
-        ]));
+        $project->update($request->validated());
 
-        return redirect()->route('projects.show', $project);
+        return redirect()->route('projects.show', $project)->with('success', 'Проект редактирован');
     }
 
     public function destroy($id)

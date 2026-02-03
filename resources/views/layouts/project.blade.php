@@ -12,10 +12,17 @@
         padding: 0;
         box-sizing: border-box;
     }
+    li{
+        list-style: none;
+    }
+    a{
+        text-decoration: none;
+    }
     .wrapper{
         height: 100vh;
         display: flex;
         align-items: center;
+        flex-direction: column;
         justify-content: center;
         position: relative;
     }
@@ -24,6 +31,7 @@
         display: flex;
         flex-direction: column;
         gap: 10px 0;
+        margin-bottom: 10px;
     }
     .project{
         margin-bottom: 20px;
@@ -37,9 +45,6 @@
     .project p{
         margin-bottom: 5px;
     }
-    .project p:last-child{
-        margin: 0;
-    }
     .alert {
         padding: 10px;
         border-radius: 8px;
@@ -47,7 +52,6 @@
         line-height: 1.5;
         position: absolute;
         width: 300px;
-        height: 100px;
         top: 10px;
         left: 50%;
         transform: translateX(-50%);

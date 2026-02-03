@@ -3,36 +3,36 @@
 @section('title', 'Создать проект')
 
 @section('content')
-
     <x-wrapper>
-        <x-alert type="success" title="Успешно">
-            Проект создан
-        </x-alert>
+        <x-alert />
         <x-form class="wrapper-form" action="{{ route('projects.store') }}" method="POST">
             @csrf
             <input type="hidden" name="access" value="yes">
             <div>
                 <x-label for="project_name">Название проекта:</x-label>
-                <x-input name="project_name" id="project_name"/>
+                <x-input name="project_name" id="project_name" value="{{ old('project_name') }}"/>
             </div>
 
             <div>
                 <x-label for="user_id">ID создателя:</x-label>
-                <x-input name="user_id" id="user_id"/>
+                <x-input name="user_id" id="user_id" value="{{ old('user_id') }}"/>
             </div>
 
             <div>
                 <x-label for="assignee_id">ID исполнителя:</x-label>
-                <x-input name="assignee_id" id="assignee_id"/>
+                <x-input name="assignee_id" id="assignee_id" value="{{ old('assignee_id') }}"/>
             </div>
 
             <div>
                 <x-label for="deadline_date">Крайний срок:</x-label>
-                <x-input type="date" name="deadline_date" id="deadline_date"/>
+                <x-input type="date" name="deadline_date" id="deadline_date" value="{{ old('deadline_date') }}"/>
             </div>
 
             <x-button>Создать проект</x-button>
         </x-form>
+        <a href="{{ route('projects.index') }}">
+            <x-button>Все проекты</x-button>
+        </a>
     </x-wrapper>
 
 @endsection

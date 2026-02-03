@@ -11,8 +11,7 @@ class Project extends Model
         'project_name',
         'user_id',
         'assignee_id',
-        'active',
-        'deadline_date',
+        'deadline_date'
     ];
 
 

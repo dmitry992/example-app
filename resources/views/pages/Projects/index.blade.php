@@ -11,6 +11,9 @@
                     <x-project-item :project="$project"/>
                 @endforeach
             @endif
+            <a href="{{ route('projects.create', ['access' => 'yes']) }}">
+                <x-button>Создать новый проект</x-button>
+            </a>
         </div>
     </x-wrapper>
 

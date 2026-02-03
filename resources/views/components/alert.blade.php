@@ -4,6 +4,25 @@
 ])
 
 @php
+
+    $hasErrors = $errors->any();
+    $hasSuccess = session()->has('success');
+
+    if (! $hasErrors && ! $hasSuccess) {
+        return;
+    }
+
+    if ($hasErrors) {
+        $type = 'warning';
+        $title = 'Ошибка';
+    } elseif ($hasSuccess) {
+        $type = 'success';
+        $title = 'Успешно';
+    } else {
+        $type = 'note';
+        $title = 'Заметка';
+    }
+
     $styles = [
             'success' => [
                 'bg' => '#e6fffa',
@@ -35,7 +54,17 @@
     <div class="alert-title">{{ $title }}</div>
 
     <div class="alert-message">
-        {{ $slot }}
+        @if ($type === 'note')
+            {{ $slot }}
+        @elseif ($hasErrors)
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @else
+            {{ session('success') }}
+        @endif
     </div>
 
 </div>
