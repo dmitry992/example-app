@@ -8,15 +8,19 @@
         <p>Срок проекта до: <strong>{{$project->deadline_date}}</strong></p>
     </div>
     <div class="project-actions">
-        <a href="{{ route('projects.edit', ['project' => $project->id, 'access' => 'yes']) }}">
-            <x-button>Редактировать</x-button>
-        </a>
+        @can('update', $project)
+            <a href="{{ route('projects.edit', ['project' => $project->id, 'access' => 'yes']) }}">
+                <x-button>Редактировать</x-button>
+            </a>
+        @endcan
 
-        <x-form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display:inline-block;">
-            @csrf
-            @method('DELETE')
-            <input type="hidden" name="access" value="yes">
-            <x-button>Удалить</x-button>
-        </x-form>
+        @can('delete', $project)
+            <x-form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display:inline-block;">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" name="access" value="yes">
+                <x-button>Удалить</x-button>
+            </x-form>
+        @endcan
     </div>
 </div>

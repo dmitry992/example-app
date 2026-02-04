@@ -3,6 +3,7 @@
 
 @section('content')
     <x-wrapper>
+        <x-alert />
         <div class="projects">
             @if(empty($projects))
                 Нет ни одного проекта
