@@ -80,7 +80,7 @@ class DevController extends Controller
 
     public function getExpired()
     {
-        $projects = Project::where('deadline_date', '<', now())
+        $projects = Project::expired()
             ->orderBy('deadline_date', 'asc')
             ->get();
 
@@ -105,6 +105,40 @@ class DevController extends Controller
         ]);
 
         return $project;
+    }
+
+    public function getMyLatestThree(Request $request)
+    {
+        $query = Project::query()->orderBy('created_at', 'desc');
+
+        if (auth()->check()) {
+            $query->where('user_id', auth()->id());
+        }
+
+        $projects = $query->limit(3)->get();
+
+        return $projects;
+    }
+
+    public function usersProjects()
+    {
+        $users = User::withCount('ownedProjects')->get();
+
+        $result = $users->map(function ($user) {
+            return [
+                'username' => $user->username,
+                'projects_count' => $user->owned_projects_count,
+            ];
+        });
+
+        return $result;
+    }
+
+    public function getExpiredProjectsCount()
+    {
+        $count = Project::expired()->count();
+
+        return ['expired_projects_count' => $count];
     }
 
 

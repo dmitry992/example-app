@@ -26,4 +26,9 @@ class Project extends Model
         return $this->belongsTo(User::class, 'assignee_id');
     }
 
+    public function scopeExpired($query)
+    {
+        return $query->where('deadline_date', '<', now());
+    }
+
 }
