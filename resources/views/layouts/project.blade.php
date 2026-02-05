@@ -33,6 +33,9 @@
         gap: 10px 0;
         margin-bottom: 10px;
     }
+    .projects{
+        height: 100%;
+    }
     .project{
         margin-bottom: 20px;
     }
